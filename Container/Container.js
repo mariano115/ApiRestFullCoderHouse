@@ -45,7 +45,7 @@ class Container {
       return true;
     } catch (error) {
       console.log(error);
-      return error.message;
+      return false;
     }
   };
 
