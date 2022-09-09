@@ -2,6 +2,10 @@
 const express = require("express");
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
+
 /* Importing the routerProductos file and then using it. */
 const routerProductos = require("./router/routerProductos");
 routerProductos.use(express.urlencoded({ extended: true }));
@@ -9,8 +13,8 @@ routerProductos.use(express.json());
 
 /* Parsing the body of the request. */
 var bodyParser = require("body-parser");
-var jsonParser = bodyParser.json();
 
+const jsonParser = bodyParser.json();
 app.use("/api/productos", jsonParser, routerProductos);
 
 const PORT = 8080;

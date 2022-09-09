@@ -1,0 +1,17 @@
+CREAR NUEVO PRODUCTO
+(POST) http://localhost:8080/api/productos
+
+OBTENER TODOS LOS PRODUCTOS
+(GET) http://localhost:8080/api/productos
+
+OBTENER PRODUCTO POR ID1
+(GET) http://localhost:8080/api/productos/2
+
+MODIFICAR PRODUCTO POR ID
+(PUT) http://localhost:8080/api/productos/1
+
+ELIMINAR PRODUCTO POR ID
+(DELETE) http://localhost:8080/api/productos/1
+
+INDEX.JS SE ACCEDE POR LA SIGUIENTE URL
+(index.js) http://localhost:8080/
