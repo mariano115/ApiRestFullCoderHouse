@@ -11,14 +11,14 @@ const routerProductos = require("./router/routerProductos");
 routerProductos.use(express.urlencoded({ extended: true }));
 routerProductos.use(express.json());
 
-/* Parsing the body of the request. */
-var bodyParser = require("body-parser");
-
-const jsonParser = bodyParser.json();
-app.use("/api/productos", jsonParser, routerProductos);
+app.use("/api/productos", routerProductos);
 
 const PORT = 8080;
 
 const server = app.listen(PORT, () => {
   console.log("Servidor levantado en el puerto " + server.address().port);
 });
+
+server.on("error", (error) =>
+  console.log({ mensaje: `Hubo un error: ${error.message}` })
+);

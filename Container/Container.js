@@ -1,6 +1,6 @@
 class Container {
-  constructor(products) {
-    this.products = products || [];
+  constructor(products = []) {
+    this.products = products;
   }
 
   addProduct = (newProduct) => {
@@ -8,9 +8,13 @@ class Container {
       if (JSON.stringify(newProduct) === "{}") {
         throw "Producto no Valido";
       }
-      newProduct.id = this.products.length + 1;
+      if (this.products.length > 0) {
+        newProduct.id = this.products[this.products.length - 1]?.id + 1;
+      } else {
+        newProduct.id = 1;
+      }
       this.products.push(newProduct);
-      return true;
+      return newProduct;
     } catch (error) {
       console.log(error);
       return false;
@@ -42,7 +46,7 @@ class Container {
         ...this.products[indexToModify],
         ...product,
       };
-      return true;
+      return this.products[indexToModify];
     } catch (error) {
       console.log(error);
       return false;

@@ -4,6 +4,15 @@ const instanceContainer = new Container([]);
 
 /* A route that returns all the products in the container. */
 router.get("/", (req, res) => {
+  try {
+    this;
+  } catch (error) {
+    console.log("Catch error: " + error);
+
+    res
+      .status(500)
+      .json({ error: "Error inesperado, comuniquese con el administrador" });
+  }
   res.send(instanceContainer.getAll());
 });
 
@@ -14,37 +23,51 @@ router.get("/:id", (req, res) => {
     console.log(response);
     if (response) {
       res.send(response);
-    } else {
-      res.status(404).send({ error: "producto no encontrado" });
+      return;
     }
+    res.status(404).send({ error: "producto no encontrado" });
   } catch (error) {
     console.log("Catch error: " + error);
+
+    res
+      .status(500)
+      .json({ error: "Error inesperado, comuniquese con el administrador" });
   }
 });
 
 /* Creating a new product. */
 router.post("/", (req, res) => {
   try {
-    if (instanceContainer.addProduct(req.body)) {
-      res.send("producto creado correctamente");
-    } else {
-      res.status(400).send({ error: "Producto Invalido" });
+    const response = instanceContainer.addProduct(req.body);
+    if (response) {
+      res.status(201).send(response);
+      return;
     }
+    res.status(400).send({ error: "Producto Invalido" });
   } catch (error) {
     console.log("Catch error: " + error);
+
+    res
+      .status(500)
+      .json({ error: "Error inesperado, comuniquese con el administrador" });
   }
 });
 
 /* A route that modifies a product. */
 router.put("/:id", (req, res) => {
   try {
-    if (instanceContainer.modifyProduct(req.params.id, req.body)) {
-      res.send("producto modificado correctamente");
-    } else {
-      res.status(404).send({ error: "producto no encontrado" });
+    const response = instanceContainer.modifyProduct(req.params.id, req.body);
+    if (response) {
+      res.send(response);
+      return;
     }
+    res.status(404).send({ error: "producto no encontrado" });
   } catch (error) {
     console.log("Catch error: " + error);
+
+    res
+      .status(500)
+      .json({ error: "Error inesperado, comuniquese con el administrador" });
   }
 });
 
@@ -53,11 +76,15 @@ router.delete("/:id", (req, res) => {
   try {
     if (instanceContainer.deleteById(req.params.id)) {
       res.send("producto eliminado correctamente");
-    } else {
-      res.status(404).send({ error: "producto no encontrado" });
+      return;
     }
+    res.status(404).send({ error: "producto no encontrado" });
   } catch (error) {
     console.log("Catch error: " + error);
+
+    res
+      .status(500)
+      .json({ error: "Error inesperado, comuniquese con el administrador" });
   }
 });
 
